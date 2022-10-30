@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        div {
+            font-size: 20px;
+            margin: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="one"></div>
+    <div class="two"></div>
+
+    <script>
+        // 1. 获取元素
+        let one = document.querySelector('.one');
+        let two = document.querySelector('.two');
+        let inputTime = +new Date('2023-2-28 23:59:59'); // 返回的是用户输入时间总的毫秒数
+        
+        getTimer(); // 我们先调用一次这个函数，防止第一次刷新页面有空白 
+
+        // 2. 开启定时器
+        setInterval(getTimer, 1000);
+
+        function getTimer(){
+            let date = new Date();                   // 获取当前时间
+            let times = (inputTime - date) / 1000;   // times 是剩余时间总的秒数
+            let dayday = parseInt(times / (60 * 60 * 24));
+            let hh = parseInt(times / 60 / 60 % 24);    // 剩余时间的小时
+            hh = hh < 10 ? '0' + hh : hh;
+            let mm = parseInt(times / 60 % 60);         // 剩余时间的分钟
+            mm = mm < 10 ? '0' + mm : mm;
+            let ss = parseInt(times % 60);              // 剩余时间的秒数
+            ss = ss < 10 ? '0' + ss : ss;
+
+            let year = date.getFullYear();      // 年
+            let month = date.getMonth() + 1;    // 月
+            let dates = date.getDate();         // 日
+
+            let h = date.getHours();    // 时
+            h = h < 10 ? '0' + h : h;   
+            let m = date.getMinutes();  // 分
+            m = m < 10 ? '0' + m : m;
+            let s = date.getSeconds();  // 秒
+            s = s < 10 ? '0' + s : s;
+    
+            let arr = ['星期日', '星期一', '星期二', '星期三', '星期四', '星期五', '星期六'];
+            let day = date.getDay();    // 获取今天是星期几
+            one.innerHTML = '今天是：' + year + '年' + month + '月' + dates + '日 ' + arr[day] + h + ':' + m + ':' + s;
+            two.innerHTML = '距离实习倒计时：' + dayday + '天' + hh + ':' + mm + ':' + ss;
+        }
+    </script>
+</body>
+</html>
